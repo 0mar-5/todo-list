@@ -1,3 +1,4 @@
+/* General styles */
 * {
   margin: 0;
   padding: 0;
@@ -12,13 +13,6 @@ body {
   color: black;
 }
 
-h1 {
-  text-align: center;
-  font-size: 2.2rem;
-  color: #fac354;
-  margin: 1.2rem 0;
-}
-
 input,
 textarea,
 button,
@@ -26,11 +20,21 @@ p {
   font-family: "Atma", system-ui;
   color: #fac354;
 }
+
+/* Header style */
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #fac354;
+  margin: 1.2rem 0;
+}
+
+/* Form style */
 .todo-form {
   background-color: #252525;
   padding: 1rem;
   margin: 1rem auto;
-  width: 35rem;
+  width: 40rem;
   max-width: 95%;
   border-radius: 12px;
   text-align: center;
@@ -103,6 +107,7 @@ span {
 .todo-form button:hover {
   background-color: #fac354;
 }
+/* Search styles */
 .search-container {
   display: flex;
   justify-content: center;
@@ -118,11 +123,11 @@ span {
   border: none;
   outline: none;
 }
-
+/* tasks styles */
 .taskList_container {
   background-color: #252525;
   margin: 1rem auto;
-  width: 35rem;
+  width: 40rem;
   max-width: 95%;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
@@ -178,7 +183,7 @@ span {
 }
 
 .complete button {
-  background-color: #486248;
+  background-color: #497049;
 }
 
 .btns .complete-btn:hover {
@@ -209,6 +214,7 @@ span {
   color: black;
 }
 
+/* responsive styles */
 @media (max-width: 560px) {
   .todo-form {
     width: 30rem;
