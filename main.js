@@ -2,43 +2,44 @@ const taskInput = document.getElementById("taskInput");
 const taskDescription = document.getElementById("taskDescription");
 const addTaskButton = document.querySelector(".add-btn");
 const taskList = document.getElementById("taskList");
+const taskInputErrorSpan = document.getElementById("taskInputError");
+const taskDescriptionErrorSpan = document.getElementById(
+  "taskDescriptionError"
+);
 
 let todoList = [];
 
 // check for invalid input
-function inputValidation() {
+function taskInputValidation() {
   let isValid = true;
-
   let regexTask = /^[A-Z][a-z\s]{3,8}$/;
-  let regexDescription = /^[a-zA-Z0-9\s]{20,40}$/;
-  let existingSpan = taskInput.nextElementSibling;
-  if (existingSpan && existingSpan.tagName === "SPAN") {
-    existingSpan.remove();
-  }
+
+  taskInputErrorSpan.textContent = "";
 
   if (!regexTask.test(taskInput.value)) {
-    createErrorMessage(
-      "please enter first letter capital and 5-8 small characters.",
-      "span",
-      taskInput
-    );
+    taskInputErrorSpan.textContent =
+      "please enter first letter capital and 3-8 small characters.";
+
     taskInput.classList.add("input-error");
     isValid = false;
   } else {
     taskInput.classList.remove("input-error");
   }
 
-  let existingSpanDes = taskDescription.nextElementSibling;
-  if (existingSpanDes && existingSpanDes.tagName === "SPAN") {
-    existingSpanDes.remove();
-  }
+  return isValid;
+}
+
+function taskDescriptionValidation() {
+  let isValid = true;
+
+  let regexDescription = /^[a-zA-Z0-9\s]{20,40}$/;
+
+  taskDescriptionErrorSpan.textContent = "";
 
   if (!regexDescription.test(taskDescription.value)) {
-    createErrorMessage(
-      "please enter at lest 20 characters.",
-      "span",
-      taskDescription
-    );
+    taskDescriptionErrorSpan.textContent =
+      "please enter at lest 20 characters.";
+
     taskDescription.classList.add("input-error");
     isValid = false;
   } else {
@@ -47,17 +48,15 @@ function inputValidation() {
 
   return isValid;
 }
-// create html element to display error message to user
-function createErrorMessage(message, type, elementPosition) {
-  let mySpan = document.createElement(type);
-  mySpan.textContent = message;
-  elementPosition.insertAdjacentElement("afterend", mySpan);
-}
+
+// validate input on typing
+taskInput.addEventListener("input", taskInputValidation);
+taskDescription.addEventListener("input", taskDescriptionValidation);
 
 // create tasks and add it in (todo) array
 function getTasks(e) {
   e.preventDefault();
-  if (!inputValidation()) return;
+  if (!taskInputValidation() || !taskDescriptionValidation()) return;
 
   let todoData = {
     id: Math.random(),
@@ -166,7 +165,7 @@ function editTask(id) {
 
   editButton.onclick = function () {
     // validate the editing inputs
-    if (!inputValidation()) return;
+    if (!taskInputValidation() || !taskDescriptionValidation()) return;
 
     todoList[index].task = taskInput.value;
     todoList[index].description = taskDescription.value;

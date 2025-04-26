@@ -12,7 +12,6 @@
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
-  <script src="main.js" defer></script>
   <title>todo list</title>
 </head>
 
@@ -24,7 +23,9 @@
   <form class="todo-form">
     <div class="todo-form__container">
       <input type="text" id="taskInput" placeholder="Add a new task..." required>
+      <span class="error-message" id="taskInputError"></span>
       <textarea id="taskDescription" placeholder="Task description..." rows="3" required></textarea>
+      <span class="error-message" id="taskDescriptionError"></span>
       <button type="submit" class="add-btn">Add</button>
     </div>
   </form>
@@ -37,6 +38,8 @@
 
   </ul>
 
+
+  <script src="main.js"></script>
 
 </body>
 
