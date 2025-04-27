@@ -261,13 +261,7 @@ button:disabled {
 @media (max-width: 510px) {
   .btns button {
     font-size: 0.7rem;
-  }
-  .task {
-    font-size: 0.8rem;
-  }
-
-  .description {
-    font-size: 0.5rem;
+    padding: 5px;
   }
 }
 
@@ -275,22 +269,18 @@ button:disabled {
   .todo-form,
   .taskList_container {
     width: 25rem;
-    max-width: 85%;
+    max-width: 92%;
   }
   #taskInput,
   #taskDescription {
-    width: 280px;
+    width: 300px;
   }
 
   .btns button {
     font-size: 0.6rem;
-    padding: 5px;
   }
-  .task {
-    font-size: 0.8rem;
-  }
-
   .description {
-    font-size: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 300;
   }
 }
