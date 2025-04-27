@@ -32,13 +32,13 @@ function taskInputValidation() {
 function taskDescriptionValidation() {
   let isValid = true;
 
-  let regexDescription = /^[a-zA-Z0-9\s]{20,40}$/;
+  let regexDescription = /^[a-zA-Z0-9\s]{20,60}$/;
 
   taskDescriptionErrorSpan.textContent = "";
 
   if (!regexDescription.test(taskDescription.value)) {
     taskDescriptionErrorSpan.textContent =
-      "please enter at lest 20 characters.";
+      "please enter at lest 20 characters to 60, no special characters allowed.";
 
     taskDescription.classList.add("input-error");
     isValid = false;
@@ -59,7 +59,7 @@ function getTasks(e) {
   if (!taskInputValidation() || !taskDescriptionValidation()) return;
 
   let todoData = {
-    id: Math.random(),
+    id: `id_${Date.now()}`,
     task: taskInput.value,
     description: taskDescription.value,
     isComplete: false,
@@ -78,7 +78,7 @@ addTaskButton.addEventListener("click", getTasks);
 // render html elements
 function renderTasks(list) {
   taskList.innerHTML = "";
-  list.forEach((task, i) => {
+  list.forEach((task) => {
     taskList.innerHTML += `
     <div class="taskList_container">
     <li class="task-container ${task.isComplete ? "complete" : ""}"
@@ -88,15 +88,17 @@ function renderTasks(list) {
         <p class="description">${task.description}</p>
       </div>
         <div class="btns">
-          <button class="complete-btn" onclick="toggleComplete(${task.id})">${
+          <button class="complete-btn" onclick="toggleComplete('${task.id}')">${
       task.isComplete ? "Undo" : "Complete"
     }</button>
-          <button id="edit_${task.id}" class="edit" onclick="editTask(${
+          <button id="edit_${task.id}" class="edit" onclick="editTask('${
       task.id
-    })">Edit</button>
-          <button id="delete-btn" onclick="deleteTask(${
+    }')">Edit</button>
+          <button id="delete_${
             task.id
-          })">Delete</button>
+          }" class="delete_btn" onclick="deleteTask('${
+      task.id
+    }')">Delete</button>
         </div>
       </li>
     </div>
@@ -156,12 +158,21 @@ function editTask(id) {
 
   const editButton = document.getElementById(`edit_${id}`);
 
+  // disable search input
+  searchInput.disabled = true;
+
   taskInput.value = todoList[index].task;
   taskDescription.value = todoList[index].description;
   taskInput.focus();
   editButton.textContent = "Save";
-  // disabled add button
-  addTaskButton.disabled = true;
+
+  // add disabled attribut to all buttons when start editing task
+  const Allbtns = document.querySelectorAll("button");
+  Allbtns.forEach((btn) => {
+    if (btn.id !== editButton.id) {
+      btn.disabled = true;
+    }
+  });
 
   editButton.onclick = function () {
     // validate the editing inputs
@@ -176,7 +187,12 @@ function editTask(id) {
     listElement.classList.remove("active");
 
     editButton.textContent = "Edit";
-    addTaskButton.disabled = false;
+    // remove disabled attribute from buttons
+    const disabledBtns = document.querySelectorAll("button:disabled");
+    disabledBtns.forEach((btn) => (btn.disabled = false));
+    // enable search input
+    searchInput.disabled = false;
+
     setToLocalStorage();
     renderTasks(todoList);
   };

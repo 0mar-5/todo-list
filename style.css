@@ -98,10 +98,10 @@ span {
   box-shadow: 0 0px 5px rgba(255, 255, 255, 0.3);
 }
 
-.add-btn:disabled,
-.add-btn:disabled:hover {
-  background-color: #f04438;
-  cursor: not-allowed;
+button:disabled {
+  background-color: #95504b !important;
+  cursor: not-allowed !important;
+  color: #131313 !important;
 }
 
 .todo-form button:hover {
@@ -122,6 +122,9 @@ span {
   font-size: 1rem;
   border: none;
   outline: none;
+}
+#search:disabled {
+  cursor: not-allowed;
 }
 /* tasks styles */
 .taskList_container {
@@ -200,7 +203,7 @@ span {
   transition: 0.3s ease-in-out;
 }
 
-#delete-btn:hover {
+.delete_btn:hover {
   color: #f04438;
   background-color: #131313;
   transition: 0.3s ease-in-out;
@@ -215,17 +218,14 @@ span {
 }
 
 /* responsive styles */
-@media (max-width: 560px) {
+@media (max-width: 660px) {
   .todo-form {
     width: 30rem;
     max-width: 90%;
   }
-  #taskInput {
-    width: 300px;
-  }
-
+  #taskInput,
   #taskDescription {
-    width: 300px;
+    width: 330px;
   }
 
   .todo-form button {
@@ -242,18 +242,55 @@ span {
     max-width: 90%;
   }
   .btns button {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
   .task {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 500;
   }
 
   .description {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     font-weight: 400;
   }
   span {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 510px) {
+  .btns button {
+    font-size: 0.7rem;
+  }
+  .task {
+    font-size: 0.8rem;
+  }
+
+  .description {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .todo-form,
+  .taskList_container {
+    width: 25rem;
+    max-width: 85%;
+  }
+  #taskInput,
+  #taskDescription {
+    width: 280px;
+  }
+
+  .btns button {
+    font-size: 0.6rem;
+    padding: 5px;
+  }
+  .task {
+    font-size: 0.8rem;
+  }
+
+  .description {
+    font-size: 0.4rem;
   }
 }
